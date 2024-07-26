@@ -5,15 +5,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ru.kata.spring.boot_security.demo.entity.User;
-import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 @Component
 public class UserValidator implements Validator {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
     @Autowired
-    public UserValidator(UserService userService){
-        this.userService = userService;
+    public UserValidator(UserServiceImpl userServiceImpl){
+        this.userServiceImpl = userServiceImpl;
     }
     @Override
     public boolean supports(Class<?> clazz) {
@@ -23,7 +23,7 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
 User user = (User) target;
-if(userService.findByEmail(user.getUsername()).isPresent()){
+if(userServiceImpl.findByEmail(user.getUsername()).isPresent()){
     errors.rejectValue("email","","email уже используется");
 }
     }

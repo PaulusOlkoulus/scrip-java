@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.kata.spring.boot_security.demo.entity.User;
-import ru.kata.spring.boot_security.demo.service.RoleService;
-import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.service.RoleServiceImpl;
+import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 
 
@@ -19,13 +19,13 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 @RequestMapping(value = "/api/user")
 @RestController
 public class UserController {
-    private final UserService userService;
-    private final RoleService roleService;
+    private final UserServiceImpl userServiceImpl;
+    private final RoleServiceImpl roleServiceImpl;
 
     @Autowired
-    public UserController(UserService userService, RoleService roleService) {
-        this.userService = userService;
-        this.roleService = roleService;
+    public UserController(UserServiceImpl userServiceImpl, RoleServiceImpl roleServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
+        this.roleServiceImpl = roleServiceImpl;
     }
 
 

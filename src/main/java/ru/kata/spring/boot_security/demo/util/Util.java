@@ -3,8 +3,8 @@ package ru.kata.spring.boot_security.demo.util;
 import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.entity.Role;
 import ru.kata.spring.boot_security.demo.entity.User;
-import ru.kata.spring.boot_security.demo.service.RoleService;
-import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.service.RoleServiceImpl;
+import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import javax.annotation.PostConstruct;
 import java.util.HashSet;
@@ -13,12 +13,12 @@ import java.util.Set;
 @Component
 public class Util {
 
-    private final UserService userService;
-private final RoleService roleService;
+    private final UserServiceImpl userServiceImpl;
+private final RoleServiceImpl roleServiceImpl;
 
-    public Util(UserService userService, RoleService roleService) {
-        this.userService = userService;
-        this.roleService = roleService;
+    public Util(UserServiceImpl userServiceImpl, RoleServiceImpl roleServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
+        this.roleServiceImpl = roleServiceImpl;
     }
 
 
@@ -27,14 +27,14 @@ private final RoleService roleService;
         // создаю роли
         Role roleUser = new Role(1L, "ROLE_USER");
         Role roleAdmin = new Role(2L, "ROLE_ADMIN");
-        roleService.save(roleUser);
-        roleService.save(roleAdmin);
+        roleServiceImpl.save(roleUser);
+        roleServiceImpl.save(roleAdmin);
 
         // для входа
-        userService.saveUserWithRoles(new User("admin", "admin", 30, "admin", "admin@mail.com"),
+        userServiceImpl.saveUserWithRoles(new User("admin", "admin", 30, "admin", "admin@mail.com"),
                 new HashSet<>(Set.of(roleAdmin)));
         System.out.println(roleAdmin);
-        userService.saveUserWithRoles(new User("user", "user", 31, "user", "user@mail.com"),
+        userServiceImpl.saveUserWithRoles(new User("user", "user", 31, "user", "user@mail.com"),
                 new HashSet<>(Set.of(roleUser)));
     }
 }
